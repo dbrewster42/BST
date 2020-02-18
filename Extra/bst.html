@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>binary search tree</title>
+</head>
+<body>
+	<script>
+		function BST(){
+		    this.root = null;   
+		}  
+		function Node(val){
+		    this.value = val;  
+		    this.left = null; 
+		    this.right = null;
+		}
+		BST.prototype.insert = function(val){
+			var newNode = new Node(val);
+			if (this.root == null){
+				this.root = newNode;
+				return this;
+			}
+			runner = this.root
+			done = false;
+			while (!done){
+				if (val == runner.value)
+					done = true;
+				if (val < runner.value){
+					if (runner.left == null){
+						runner.left = newNode;
+						done = true;
+					}
+					else	
+						runner = runner.left
+				}
+				else {
+					if (runner.right == null){
+						runner.right = newNode;
+						done = true;
+					}
+					else	
+						runner = runner.right
+				}				
+			}
+			return this;
+		}
+		BST.prototype.preTraverse = function(val){			
+			if (!runner)
+				runner = this.root;			
+			console.log(runner.value + " ")							
+			if (runner.left == null && runner.right == null)
+				return this;
+			else if (runner.left == null)
+				return preTraverse(runner.right);
+			else if (runner.right == null)
+				return preTraverse(runner.left);
+			else
+				return (preTraverse(runner.left) + preTraverse(runner.right))	
+		}
+		var first = new BST(); 
+		first.root = new Node(30); 
+		first.insert(20).insert(40).insert(50).insert(25).insert(10).insert(45)
+		console.log(first)
+		first.preTraverse()
+
+	</script>
+</body>
+</html>

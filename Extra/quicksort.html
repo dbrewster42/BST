@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>quick sort</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function quickSort(arr){
+			var i = 0;
+			var j = arr.length-1
+			var pivot = arr[Math.floor(j / 2)]
+			var temp;
+			console.log(pivot)
+			while (i != j){
+				while (arr[i] < pivot){
+					i++;
+				}
+				while (arr[j] > pivot)
+					j--
+				console.log(i, "Howdy", j)
+				temp = arr[i]
+				arr[i] = arr[j]
+				arr[j] = temp
+			}
+			return arr
+
+		}
+		console.log(quickSort([1, 7, 6, 15, 12, 3, 8, 20, 9, 4, 2, 10, 30]))
+		console.log(quickSort([1, 7, 6, 15, 12, 3, 25, 20, 9, 4, 2, 10, 30]))
+	</script>
+
+</body>
+</html>

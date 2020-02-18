@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>asdf</title>
+</head>
+<body>
+	<script>
+		function insertIntoHeap(heap, val){
+			if (heap.length == 0){				
+				heap[0] = undefined;
+			}
+			heap.push(val);
+			index = heap.length - 1;
+			parent = Math.floor(index/2)			
+			while (val < heap[parent]){
+				temp = heap[index];
+				heap[index] = heap[parent];
+				heap[parent] = temp;
+				index = parent;
+				parent = Math.floor(index/2);				
+			}
+			return heap;
+		}
+		function removeFromMinHeap(heap){
+			temp = heap[1];
+			heap[1] = heap[heap.length-1];
+			heap[heap.length-1] = temp;
+			val = heap.pop();
+			i = 1;
+			while (heap[i] > heap[i*2] || heap[i] > heap[i*2+1]){
+				if (heap[i*2+1] > heap[i*2])
+					k = i*2
+				else
+					k = i*2+1	
+				if (k >= heap.length)
+					break							
+				temp = heap[i];
+				heap[i] = heap[k]
+				heap[k] = temp
+				i = k				
+			}
+			// console.log(heap)
+			return val;
+		}
+		function heapify(arr){
+			child = arr.length			
+			arr[child] = arr[0]
+			arr[0] = undefined			
+			parent = Math.floor(child / 2)
+			second = parent
+			if (child % 2 == 1)
+				second = child - 1			
+			while (parent > 0){
+				if (arr[parent] > arr[child] || arr[parent] > arr[second] ){		
+					k = child
+					if (arr[child] > arr[second])
+						k = second
+					temp = arr[parent]
+					arr[parent] = arr[k]
+					arr[k] = temp
+				}
+				parent--
+				child = parent * 2
+				second = child + 1
+			}
+			return arr
+
+		}
+		function sortArr(arr){
+			p = arr.length;
+			console.log("ready ", p)
+			z = 0;
+			newArr = []	;
+			heap = heapify(arr);		
+			while (z < p){	
+				u = removeFromMinHeap(heap)
+				console.log("new ", u)
+				newArr.push(u);
+				console.log("this is ", newArr);
+				console.log("yup yup", z);
+				z++;
+				
+			}
+			return newArr;
+		}
+		console.log(sortArr([7, 2, 3, 20, 18, 19, 15, 16, 17, 4, 6, 5]))
+		// console.log(heapify([20, 3, 8, 14, 9, 6, 2]))
+		// alters the array to [undefined, 2, 6, 3, 9, 8, 14, 20]
+// 		console.log(removeFromMinHeap([undefined, 3, 12, 8, 17, 13, 15, 10]));
+// // changes the heap to [undefined, 8, 12, 10, 17, 13, 15] and returns 3
+// 		console.log(removeFromMinHeap([undefined, 8]));
+		// console.log(insertIntoHeap([], 13)); 
+		// console.log(insertIntoHeap([undefined, 3, 8, 10, 11, 9, 20, 14], 7));
+		//// (9) [undefined, 3, 7, 10, 8, 9, 20, 14, 11]
+	</script>
+</body>
+</html>

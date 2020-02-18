@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>binary search tree</title>
+</head>
+<body>
+	<script>
+		class Node {
+			constructor(val){
+				this.value = val;  
+		    	this.left = null; 
+		    	this.right = null;
+			}
+		}
+		class BST{
+			constructor(){
+		    	this.root = null;   
+			}
+
+			insert(val){
+				var newNode = new Node(val);
+				if (this.root == null){
+					this.root = newNode;
+					return this;
+				}
+				var runner = this.root
+				var done = false;
+				while (!done){
+					if (val == runner.value)
+						done = true;
+					if (val < runner.value){
+						if (runner.left == null){
+							runner.left = newNode;
+							done = true;
+						}
+						else	
+							runner = runner.left
+					}
+					else {
+						if (runner.right == null){
+							runner.right = newNode;
+							done = true;
+						}
+						else	
+							runner = runner.right
+					}				
+				}
+				return this;
+			}
+			preTraverse(runner){			
+				if (!runner)
+					var runner = this.root;			
+				console.log(runner.value + " ")							
+				if (runner.left == null && runner.right == null)
+					return this;
+				else if (runner.left == null)
+					return this.preTraverse(runner.right);
+				else if (runner.right == null)
+					return this.preTraverse(runner.left);
+				else
+					return (this.preTraverse(runner.left) + this.preTraverse(runner.right))
+			}
+			inTraverse(){				
+				var runner = this.root;
+				return this.inTrav(runner)
+			}
+			inTrav(runner){								
+				if (runner != null){
+					this.inTrav(runner.left)
+					console.log(runner.value)
+					this.inTrav(runner.right)
+				}
+				return this
+
+			}
+			depth(){
+				var runner = this.root;				
+				return this.maxDepth(runner)
+			}	
+			maxDepth(runner){
+				if (runner)
+					return Math.max(this.maxDepth(runner.left), this.maxDepth(runner.right)) + 1
+				return 0
+			}
+			remove(val){
+				var runner = this.root
+				runner = this.find(val, runner)	
+				return this	
+			}
+			find(val, runner){
+				if (runner){
+					if (val == runner.value){
+						console.log("We got it", runner)
+						return this.delete(val, runner)
+					}
+					if (val < runner.value)
+						return this.find(val, runner.left)
+					if (val > runner.value) 
+						return this.find(val, runner.right)
+				}
+				console.log("No one here Bob")
+				return false
+			}
+			delete(val, runner){				
+				console.log("Sunshine", runner)
+				if (runner.left == null && runner.right == null){
+					runner = null
+					console.log("SUcess")
+					return this.runner
+				}
+				else if (runner.left == null){
+					runner == runner.right
+					console.log("suceSS")					
+					return this.runner
+				}
+				else if (runner.right == null){
+					runner = runner.left
+					console.log("sucess")
+					return this.runner
+				}
+				else {
+					var node = this.findMin(runner.right)
+					node.left = runner.left
+					node.right = runner.right
+					runner = node
+					console.log("it is finished", node)
+					return this.delete(val, node.right)	
+				}
+				
+
+
+			}
+			
+			findMin(runner){				
+				if (runner.left){
+					console.log("Cherries", runner)					
+					return this.findMin(runner.left)
+				}
+				return runner
+			}
+			findM(){
+				var runner = this.root
+				return this.findMin(runner)
+			}
+			removeNode(val){
+				return this.finder(this.root, val)
+			}
+			finder(runner, val){
+				console.log("Chickens", runner)
+				var truth = false
+				if (runner){
+					if (runner.left != null && runner.left.value == val){
+						truth = true
+						return this.deleteN(runner, val, truth)
+					}
+					if (runner.right != null && runner.right.value == val)
+						return this.deleteN(runner, val, truth)
+					if (val < runner.value)
+						return this.finder(runner.left, val)
+					if (val > runner.value) 
+						return this.finder(runner.right, val)
+				}
+				console.log("No one here Bob")
+				return false
+			}
+			deleteN(runner, val, truth){
+				console.log("Deleting", runner, val, truth)
+				if (truth)
+					runner.left = null
+				if (!truth){
+					console.log("Deleting Right")
+					runner.right = null
+				}
+				return this
+			}
+			
+		}
+		// var first = new BST(); 
+		// first.root = new Node(30); 
+		// first.insert(20).insert(40).insert(50).insert(25).insert(10).insert(45)
+		// first.insert(5).insert(36)
+		// console.log(first)		
+		
+		var second = new BST();
+		second.insert(40).insert(50).insert(20).insert(25)
+		console.log(second)		
+		// console.log(first.findM())
+		// console.log(second.findM())
+		// console.log("BREAKTIME11!!!")
+		console.log(second.remove(20))
+		// console.log(second)
+		// console.log("BREAKTIME11!!!")
+		// first.preTraverse()
+		// console.log("BREAKTIME11!!!")
+		second.inTraverse()
+		// console.log("BREAKTIME11!!!")
+		// first.inTraverse()				
+		// console.log("BREAKTIME11!!!")
+		// console.log(first.depth())
+		// console.log(second)				
+		// // console.log("BREAKTIME11!!!")
+		// console.log(second.depth())
+
+	</script>
+</body>
+</html>
